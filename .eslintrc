@@ -9,6 +9,7 @@
     "react/wrap-multilines": 2,
     "func-names": 0,
     "init-declarations": 0,
+    "no-use-before-define": [2, {"functions": false, "classes": true}],
     "semi": [2, "never"]
   },
   "plugins": [
