@@ -1,0 +1,3 @@
+[submodule "e2e/lib/react-devtools"]
+	path = e2e/lib/react-devtools
+	url = https://github.com/facebook/react-devtools.git
