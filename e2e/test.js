@@ -1,23 +1,34 @@
 /* eslint-env mocha */
-import expect from 'unexpected'
-import selenium from 'selenium-webdriver'
-import test from 'selenium-webdriver/testing'
-import TestUtils from 'react-addons-test-utils'
 
-test.describe('React locator', function() {
+import React from 'react'
+import expect from 'unexpected'
+import webdriver from 'selenium-webdriver'
+
+import TodoItem from '../components/TodoItem'
+
+function byComponent(el) {
+  /* global __retractor */
+  return webdriver.By.js(function(name, filter) {
+    return __retractor.findOneDOMNode(name, filter)
+  }, el.type.name, { props: el.props })
+}
+
+describe('React locator', function() {
   let driver
 
-  test.before(function() {
-    driver = new selenium.Builder()
+  before(function() {
+    driver = new webdriver.Builder()
     .forBrowser('firefox')
     .build()
   })
 
-  test.it('checks the application title', function() {
+  it('checks the application title', function() {
     driver.get('http://localhost:3000/')
 
-    return expect(
-      driver.getTitle(), 'when fulfilled', 'to equal', 'Redux TodoMVC example'
-    )
+    const el = driver.findElement(byComponent(
+      <TodoItem todo={{ text: 'Use Redux' }} />
+    ))
+
+    return expect(el, 'when fulfilled', 'to be a', webdriver.WebElement)
   })
 })
